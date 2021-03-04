@@ -1,9 +1,9 @@
 @import '../../../styles/settings.scss';
 
-.component {
-  padding: $base-size;
+.active {
+  color: $color-main;
 }
 
 .link {
-  display: block;
+  padding: $base-size;
 }
