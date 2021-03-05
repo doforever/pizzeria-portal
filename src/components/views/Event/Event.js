@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Booking.module.scss';
+import styles from './Event.module.scss';
 
-const Booking = ({match}) => {
+const Event = ({match}) => {
   const id = match.params.id;
 
   return (
     <div className={styles.component}>
-      <h2>Booking view</h2>
-      <h3>Booking id: {id}</h3>
+      <h2>Event view</h2>
+      <h3>Event id: {id}</h3>
     </div>
   );
 };
 
-Booking.propTypes = {
+Event.propTypes = {
   match: PropTypes.object,
 };
 
 
-export default Booking;
+export default Event;
 
