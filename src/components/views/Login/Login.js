@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';import TextField from '@
 const Login = () => (
   <div className={styles.component}>
     <Grid container justify='center' alignContent='center'>
-      <Grid item xs='12' sm='8' md='6'>
+      <Grid item xs={12} sm={8} md={6}>
         <Card>
           <CardContent>
             <form noValidate>

@@ -8,18 +8,25 @@ import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { DataGrid } from '@material-ui/data-grid';
+
+const columns = [
+  { field: 'id', headerName: 'ID', hide: true},
+  { field: 'statistic', headerName: 'Statistic', flex:1},
+  { field: 'restaurant', headerName: 'Restaurant', flex:1, type: 'number'},
+  { field: 'delivery', headerName: 'Delivery', flex: 1, type: 'number'},
+];
+
+const rows = [
+  { id: 'orderNbr', statistic: 'Order count', restaurant: 4, delivery: 3 },
+  { id: 'income', statistic: 'Income ($)', restaurant: 400, delivery: 300 },
+];
 
 const Dashboard = () => (
   <div className={styles.component}>
     <Typography component="h1" variant="h3" gutterBottom>Dashboard</Typography>
-    <Grid container spacing="2">
-      <Grid item xs='12' >
+    <Grid container spacing={2}>
+      <Grid item xs={12} >
         <Card>
           <CardContent>
             <Typography component="h2" variant="h4" gutterBottom>Coming events</Typography>
@@ -34,37 +41,19 @@ const Dashboard = () => (
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs='12' >
+      <Grid item xs={12} >
         <Card>
           <CardContent>
             <Typography component="h2" variant="h4" gutterBottom>Order statistics</Typography>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Orders</TableCell>
-                    <TableCell align="right">Restaurant</TableCell>
-                    <TableCell align="right">Delivery</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      Order count
-                    </TableCell>
-                    <TableCell align="right">3</TableCell>
-                    <TableCell align="right">4</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell component="th" scope="row">
-                      Income
-                    </TableCell>
-                    <TableCell align="right">$300</TableCell>
-                    <TableCell align="right">$400</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              autoHeight
+              disableColumnMenu
+              disableColumnSelector
+              disableSelectionOnClick
+              hideFooter
+              showCellRightBorder/>
           </CardContent>
         </Card>
       </Grid>
