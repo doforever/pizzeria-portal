@@ -9,8 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-// import DateFnsUtils from '@date-io/date-fns';
-// import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { DatePicker, TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 function renderCell({value}) {
   if (!value) {
@@ -42,32 +42,38 @@ const rows = [
 ];
 
 const Tables = () => {
-  // const [selectedDate, handleDateChange] = useState(new Date());
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   return (
     <div className={styles.component}>
       <Typography component="h1" variant="h3" gutterBottom>Tables</Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker value={selectedDate} onChange={handleDateChange} />
-            <TimePicker value={selectedDate} onChange={handleDateChange} />
-          </MuiPickersUtilsProvider> */}
-        </Grid>
+
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Typography component="h2" variant="h4" gutterBottom>Bookings and events</Typography>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                autoHeight
-                disableColumnMenu
-                disableColumnSelector
-                disableSelectionOnClick
-                hideFooter
-                showCellRightBorder
-                onCellClick = {(param) => console.log(param.value)}/>
+              <Grid container spacing={2} direction="column">
+                <Grid item>
+                  <Typography component="h2" variant="h4" gutterBottom>Bookings and events</Typography>
+                </Grid>
+                <Grid item>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <DatePicker value={selectedDate} onChange={handleDateChange}/>
+                    <TimePicker value={selectedDate} onChange={handleDateChange}/>
+                  </MuiPickersUtilsProvider>
+                </Grid>
+                <Grid item>
+                  <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    autoHeight
+                    disableColumnMenu
+                    disableColumnSelector
+                    disableSelectionOnClick
+                    hideFooter
+                    showCellRightBorder/>
+                </Grid>
+              </Grid>
             </CardContent>
             <CardActions>
               <Button color="primary" href="tables/booking/new">Add new booking</Button>
