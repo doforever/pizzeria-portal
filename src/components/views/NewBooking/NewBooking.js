@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './NewBooking.module.scss';
 
 import TextField from '@material-ui/core/TextField';
@@ -17,7 +16,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 
 
-const Booking = () => {
+const NewBooking = () => {
 
   return (
     <div className={styles.component}>
@@ -127,10 +126,5 @@ const Booking = () => {
   );
 };
 
-Booking.propTypes = {
-  match: PropTypes.object,
-};
-
-
-export default Booking;
+export default NewBooking;
 
