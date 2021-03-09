@@ -12,46 +12,58 @@ import Button from '@material-ui/core/Button';
 
 const columns = [
   { field: 'id', headerName: 'Table', width: 70},
-  { field: 'order', headerName: 'Order', flex: 2},
+  { field: 'order', headerName: 'Order', flex: 1},
   { field: 'status', headerName: 'Status', flex: 1},
-  { field: 'timeLastChanged', headerName: 'Time since change', flex: 1},
-  { field: 'actions', headerName: 'Actions', width: 245, renderCell: () => renderActions()},
+  // { field: 'timeLastChanged', headerName: 'Time since change', flex: 1},
+  { field: 'actions', headerName: 'Actions', flex:1, renderCell: ({row}) => renderActions(row.status)},
 ];
 
 const rows = [
-  { id: 1,
-    order: 'some summary',
-    status: 'new',
-    timeLastChanged: '00:10'},
-  { id: 2,
-    order: 'some summary',
-    status: 'delivered',
-    timeLastChanged: '00:15'},
-  { id: 3,
-    order: 'some summary',
-    status: 'done',
-    timeLastChanged: '00:20'},
+  {id: '1', status: 'free', order: null},
+  {id: '2', status: 'thinking', order: null},
+  {id: '3', status: 'ordered', order: 123},
+  {id: '4', status: 'prepared', order: 234},
+  {id: '5', status: 'delivered', order: 345},
+  {id: '6', status: 'paid', order: 456},
 ];
 
-function renderActions() {
-  return (
-    <span>
-      <Button size="small">
-        new
-      </Button>
-      <Button size="small">
-        delivered
-      </Button>
-      <Button size="small">
-        done
-      </Button>
-    </span>
-  );
+function renderActions (status) {
+  switch (status) {
+    case 'free':
+      return (
+        <>
+          <Button>thinking</Button>
+          <Button>new order</Button>
+        </>
+      );
+    case 'thinking':
+      return (
+        <Button>new order</Button>
+      );
+    case 'ordered':
+      return (
+        <Button>prepared</Button>
+      );
+    case 'prepared':
+      return (
+        <Button>delivered</Button>
+      );
+    case 'delivered':
+      return (
+        <Button>paid</Button>
+      );
+    case 'paid':
+      return (
+        <Button>free</Button>
+      );
+    default:
+      return null;
+  }
 }
 
 const Waiter = ({history}) => {
-  const selectOrder = id => {
-    history.push(`waiter/order/${id}`);
+  const selectOrder = order => {
+    if(order) history.push(`waiter/order/${order}`);
   };
 
   return (
@@ -75,7 +87,7 @@ const Waiter = ({history}) => {
                     disableColumnMenu
                     hideFooter
                     showCellRightBorder
-                    onRowClick={params => selectOrder(params.row.id)}/>
+                    onRowClick={params => selectOrder(params.row.order)}/>
                 </Grid>
               </Grid>
             </CardContent>
