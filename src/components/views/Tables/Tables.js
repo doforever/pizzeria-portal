@@ -17,7 +17,7 @@ function renderCell({value}) {
     return null;
   } else {
     return (
-      <Link href={'tables/booking/' + value.id}>
+      <Link href={`tables/${value.type}/${value.id}`}>
         {value.type[0].toUpperCase() + value.type.substring(1)} id: {value.id}
       </Link>
     );
@@ -37,8 +37,8 @@ const rows = [
   { id: 2, hour: '12:30', table3: {id: '1', type: 'booking'} },
   { id: 3, hour: '13:00', table1: {id: '2', type: 'booking'}},
   { id: 4, hour: '13:30'},
-  { id: 5, hour: '14:00', table2: {id: '1', type: 'event'}},
-  { id: 6, hour: '14:30', table2: {id: '1', type: 'event'}},
+  { id: 5, hour: '14:00', table2: {id: '1', type: 'events'}},
+  { id: 6, hour: '14:30', table2: {id: '1', type: 'events'}},
 ];
 
 const Tables = () => {
@@ -48,7 +48,6 @@ const Tables = () => {
     <div className={styles.component}>
       <Typography component="h1" variant="h3" gutterBottom>Tables</Typography>
       <Grid container spacing={2}>
-
         <Grid item xs={12}>
           <Card>
             <CardContent>
