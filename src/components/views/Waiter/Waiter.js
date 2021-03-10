@@ -9,10 +9,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 const columns = [
   { field: 'id', headerName: 'Table', width: 70},
-  { field: 'order', headerName: 'Order', flex: 1},
+  { field: 'order', headerName: 'Order', flex: 1, renderCell: ({row}) => renderOrder(row.order)},
   { field: 'status', headerName: 'Status', flex: 1},
   // { field: 'timeLastChanged', headerName: 'Time since change', flex: 1},
   { field: 'actions', headerName: 'Actions', flex:1, renderCell: ({row}) => renderActions(row.status)},
@@ -61,10 +62,15 @@ function renderActions (status) {
   }
 }
 
+function renderOrder (order) {
+  if (order) return (
+    <Link href={`/waiter/order/${order}`}>
+      Order id: {order}
+    </Link>
+  );
+}
+
 const Waiter = ({history}) => {
-  const selectOrder = order => {
-    if(order) history.push(`waiter/order/${order}`);
-  };
 
   return (
     <div className={styles.component}>
@@ -87,7 +93,7 @@ const Waiter = ({history}) => {
                     disableColumnMenu
                     hideFooter
                     showCellRightBorder
-                    onRowClick={params => selectOrder(params.row.order)}/>
+                  />
                 </Grid>
               </Grid>
             </CardContent>
