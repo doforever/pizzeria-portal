@@ -1,9 +1,9 @@
 
 {
   "table": 1,
-  "totalPrice": 40,
+  "totalPrice": 38,
   "subTotalPrice": 20,
-  "totalNumber": 1,
+  "totalNumber": 2,
   "products": [
     {
       "id": "pizza",
@@ -29,9 +29,24 @@
           }
         },
         "crust": {
-          "label": "pizza crust",
+          "label": "Pizza crust",
           "options": {
             "standard": "standard"
+          }
+        }
+      }
+    },
+    {
+      "id": "breakfast",
+      "amount": 2,
+      "price": 18,
+      "priceSingle": 9,
+      "name": "Zia Giulia's Breakfast",
+      "params": {
+        "coffee": {
+          "label": "Coffee type",
+          "options": {
+            "espresso": "Espresso"
           }
         }
       }
