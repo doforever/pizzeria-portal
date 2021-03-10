@@ -25,7 +25,7 @@ const Booking = ({match}) => {
     <div className={styles.component}>
       <Card>
         <CardContent>
-          <CardHeader title={`Booking ${id}`} />
+          <CardHeader title={`Booking ${id}`} titleTypographyProps={{variant: 'h3'}}/>
           <form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item>
