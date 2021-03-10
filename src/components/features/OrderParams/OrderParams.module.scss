@@ -1,0 +1,8 @@
+@import '../../../styles/settings.scss';
+
+.orderParamsItem {
+  margin: 0;
+  >* {
+    font-size: 12px;
+  }
+}
