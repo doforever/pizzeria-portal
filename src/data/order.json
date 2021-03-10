@@ -1,42 +1,42 @@
-[
-  {
-    "table": 1,
-    "totalPrice": 40,
-    "subTotalPrice": 20,
-    "totalNumber": 1,
-    "products": [
-      {
-        "id": "pizza",
-        "amount": 1,
-        "price": 20,
-        "priceSingle": 20,
-        "name": "Nonna Alba's Pizza",
-        "params": {
-          "sauce": {
-            "label": "Sauce",
-            "options": {
-              "tomato": "Tomato"
-            }
-          },
-          "toppings": {
-            "label": "Toppings",
-            "options": {
-              "olives": "Olives",
-              "redPeppers": "Red peppers",
-              "greenPeppers": "Green peppers",
-              "mushrooms": "Mushrooms",
-              "basil": "Fresh basil"
-            }
-          },
-          "crust": {
-            "label": "pizza crust",
-            "options": {
-              "standard": "standard"
-            }
+
+{
+  "table": 1,
+  "totalPrice": 40,
+  "subTotalPrice": 20,
+  "totalNumber": 1,
+  "products": [
+    {
+      "id": "pizza",
+      "amount": 1,
+      "price": 20,
+      "priceSingle": 20,
+      "name": "Nonna Alba's Pizza",
+      "params": {
+        "sauce": {
+          "label": "Sauce",
+          "options": {
+            "tomato": "Tomato"
+          }
+        },
+        "toppings": {
+          "label": "Toppings",
+          "options": {
+            "olives": "Olives",
+            "redPeppers": "Red peppers",
+            "greenPeppers": "Green peppers",
+            "mushrooms": "Mushrooms",
+            "basil": "Fresh basil"
+          }
+        },
+        "crust": {
+          "label": "pizza crust",
+          "options": {
+            "standard": "standard"
           }
         }
       }
-    ],
-    "id": 1
-  }
-]
+    }
+  ],
+  "id": 1
+}
+

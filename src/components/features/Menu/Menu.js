@@ -12,7 +12,7 @@ const Menu = () => {
     <Card>
       <CardHeader
         title="Menu"
-        titleTypographyProps={{variant: 'h3'}}
+        titleTypographyProps={{component: 'h2', variant: 'h3'}}
       />
       <CardContent>
         {products.map(product => (

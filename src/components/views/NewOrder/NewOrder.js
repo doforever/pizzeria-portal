@@ -29,24 +29,31 @@ const NewOrder = () => {
         </Grid>
         <Grid item>
           <Card>
+            <CardHeader
+              title="Make order"
+              titleTypographyProps={{component:'h2', variant: 'h3'}}
+            />
             <CardContent>
               <Grid container direction="column" spacing={2}>
-                <Grid item>
-                  <Typography variant="h4" display="inline">Choose table: </Typography>
-                  <FormControl>
-                    <Select
-                      variant="outlined"
-                      id="table-nbr"
-                      defaultValue=""
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={1}>1</MenuItem>
-                      <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
-                    </Select>
-                  </FormControl>
+                <Grid item container spacing={2}>
+                  <Grid item>
+                    <Typography component="h3" variant="h5" display="inline">Choose table: </Typography>
+                  </Grid>
+                  <Grid item>
+                    <FormControl>
+                      <Select
+                        id="table-nbr"
+                        defaultValue=""
+                      >
+                        <MenuItem value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Grid>
                 </Grid>
                 <Grid item>
                   <OrderSummary />
