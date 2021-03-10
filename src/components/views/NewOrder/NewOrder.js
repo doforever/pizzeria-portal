@@ -7,12 +7,18 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import MenuProduct from '../../features/MenuProduct/MenuProduct';
 import Grid from '@material-ui/core/Grid';
+import OrderSummary from '../../features/OrderSummary/OrderSummary';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import Typography from '@material-ui/core/Typography';
+
+
+
 
 const NewOrder = () => {
-  const calculatePrice = () => (40);
   return (
     <div className={styles.component}>
       <Card>
@@ -25,14 +31,29 @@ const NewOrder = () => {
               />
             </Grid>
             <Grid item>
+              <Typography variant="h4" display="inline">Choose table: </Typography>
+              <FormControl>
+                <Select
+                  variant="outlined"
+                  id="table-nbr"
+                  defaultValue=""
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item>
               {products.map(product => (
                 <MenuProduct key={product.id} {...product}/>
               ))}
             </Grid>
             <Grid item>
-              <Typography variant="h4" gutterBottom>
-                Total price: {calculatePrice()}
-              </Typography>
+              <OrderSummary />
             </Grid>
           </Grid>
         </CardContent>

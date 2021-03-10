@@ -42,7 +42,7 @@ const MenuProduct = ({name, price, params}) => {
           <Grid item container spacing={2}>
             <Grid item>
               <TextField
-                className={styles.fontChange}
+                className={styles.legendFontChange}
                 label="Choose quantity"
                 type="number"
                 InputLabelProps={{
