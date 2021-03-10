@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
+import Menu from '../../features/Menu/Menu';
 
 
 
@@ -21,46 +22,43 @@ import Typography from '@material-ui/core/Typography';
 const NewOrder = () => {
   return (
     <div className={styles.component}>
-      <Card>
-        <CardContent>
-          <Grid container direction="column" spacing={2}>
-            <Grid item>
-              <CardHeader
-                title="New order"
-                titleTypographyProps={{variant: 'h3'}}
-              />
-            </Grid>
-            <Grid item>
-              <Typography variant="h4" display="inline">Choose table: </Typography>
-              <FormControl>
-                <Select
-                  variant="outlined"
-                  id="table-nbr"
-                  defaultValue=""
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item>
-              {products.map(product => (
-                <MenuProduct key={product.id} {...product}/>
-              ))}
-            </Grid>
-            <Grid item>
-              <OrderSummary />
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardActions>
-          <Button color="primary">Save</Button>
-        </CardActions>
-      </Card>
+      <Typography component="h1" variant="h3" gutterBottom>New order</Typography>
+      <Grid container spacing={2} direction="column">
+        <Grid item>
+        	<Menu />
+        </Grid>
+        <Grid item>
+          <Card>
+            <CardContent>
+              <Grid container direction="column" spacing={2}>
+                <Grid item>
+                  <Typography variant="h4" display="inline">Choose table: </Typography>
+                  <FormControl>
+                    <Select
+                      variant="outlined"
+                      id="table-nbr"
+                      defaultValue=""
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={1}>1</MenuItem>
+                      <MenuItem value={2}>2</MenuItem>
+                      <MenuItem value={3}>3</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item>
+                  <OrderSummary />
+                </Grid>
+              </Grid>
+            </CardContent>
+            <CardActions>
+              <Button color="primary">Save</Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grid>
     </div>
   );
 };
