@@ -22,7 +22,7 @@ const Event = () => {
     <div className={styles.component}>
       <Card>
         <CardContent>
-          <CardHeader title="New event" />
+          <CardHeader title="New event" titleTypographyProps={{variant: 'h3'}}/>
           <form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item>

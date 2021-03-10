@@ -25,7 +25,7 @@ const Event = ({match}) => {
     <div className={styles.component}>
       <Card>
         <CardContent>
-          <CardHeader title={`Event ${id}`} />
+          <CardHeader title={`Event ${id}`} titleTypographyProps={{variant: 'h3'}}/>
           <form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item>

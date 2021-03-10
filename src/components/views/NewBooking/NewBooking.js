@@ -22,7 +22,7 @@ const NewBooking = () => {
     <div className={styles.component}>
       <Card>
         <CardContent>
-          <CardHeader title="New booking" />
+          <CardHeader title="New booking" titleTypographyProps={{variant: 'h3'}}/>
           <form noValidate autoComplete="off">
             <Grid container spacing={2}>
               <Grid item>
