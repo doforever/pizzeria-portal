@@ -9,7 +9,7 @@ import styles from './OrderParams.module.scss';
 
 
 const orderParams = params => (
-  <List dense disablePadding>
+  <List dense disablePadding className={styles.component}>
     {Object.keys(params).map(key => (
       <ListItem key={key} dense disableGutters>
         <ListItemText
