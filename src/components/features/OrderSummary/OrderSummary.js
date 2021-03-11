@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
@@ -13,14 +13,10 @@ import SwitchingAmount from '../../common/SwitchingAmount/SwitchingAmount';
 
 import styles from './OrderSummary.module.scss';
 
-const OrderSummary = ({totalPrice, products}) => {
-  const [isReadOnly, setReadOnly] = useState(true);
+const OrderSummary = ({totalPrice, products, editable}) => {
 
   const renderActions = () => (
     <div>
-      <IconButton aria-label="edit" onClick={() => setReadOnly(false)}>
-        <EditIcon fontSize="small"/>
-      </IconButton>
       <IconButton aria-label="delete">
         <DeleteIcon fontSize="small"/>
       </IconButton>
@@ -28,7 +24,7 @@ const OrderSummary = ({totalPrice, products}) => {
   );
 
   const renderAmount = (amount) => (
-    <SwitchingAmount value={amount} isReadOnly={isReadOnly} min={0} max={9} />
+    <SwitchingAmount value={amount} isReadOnly={!editable} min={0} max={9} />
   );
 
   const columns = [
@@ -36,7 +32,7 @@ const OrderSummary = ({totalPrice, products}) => {
     { field: 'params', headerName: 'Params', flex: 3, renderCell: ({row}) => OrderParams(row.params)},
     { field: 'priceSingle', headerName: 'Price', flex: 1},
     { field: 'amount', headerName: 'Amount', flex: 1, renderCell: ({row}) => renderAmount(row.amount)},
-    { field: 'actions', headerName: 'Actions', flex:1, renderCell: () => renderActions()},
+    { field: 'actions', headerName: 'Actions', hide:!editable, flex:1, renderCell: () => renderActions()},
   ];
 
   return (
@@ -69,6 +65,7 @@ const OrderSummary = ({totalPrice, products}) => {
 OrderSummary.propTypes = {
   totalPrice: PropTypes.number,
   products: PropTypes.array,
+  editable: PropTypes.bool,
 };
 
 export default OrderSummary;
