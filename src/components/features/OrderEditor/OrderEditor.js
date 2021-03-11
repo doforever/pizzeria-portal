@@ -11,12 +11,20 @@ import OrderSummary from '../../features/OrderSummary/OrderSummary';
 import Typography from '@material-ui/core/Typography';
 import SwitchingAmount from '../../common/SwitchingAmount/SwitchingAmount';
 
-const OrderEditor = ({id, table, ...otherProps}) => {
+const OrderEditor = ({id, table, editable=true, onSave, onEdit, ...otherProps}) => {
+  const renderActions = () => {
+    return (
+      <div>
+        { editable ? '' : <Button color="primary" onClick={onEdit}>Edit</Button> }
+        <Button color="primary" onClick={onSave}>Save</Button>
+      </div>
+    );
+  };
 
   return (
     <Card>
       <CardHeader
-        title={id ? 'Order id: ' + id : 'New order'}
+        title="Order"
         titleTypographyProps={{component:'h2', variant: 'h3'}}
       />
       <CardContent>
@@ -26,16 +34,16 @@ const OrderEditor = ({id, table, ...otherProps}) => {
               <Typography component="h3" variant="h5" display="inline">Choose table: </Typography>
             </Grid>
             <Grid item>
-              <SwitchingAmount value={table} isReadOnly={false} min={0} max={3} />
+              <SwitchingAmount value={table} isReadOnly={!editable} min={0} max={3} />
             </Grid>
           </Grid>
           <Grid item>
-            <OrderSummary {...otherProps}/>
+            <OrderSummary editable={editable} {...otherProps}/>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions>
-        <Button color="primary">Save</Button>
+        {renderActions()}
       </CardActions>
     </Card>
   );
@@ -44,6 +52,9 @@ const OrderEditor = ({id, table, ...otherProps}) => {
 OrderEditor.propTypes = {
   id: PropTypes.number,
   table: PropTypes.number,
+  editable: PropTypes.bool,
+  onSave: PropTypes.func,
+  onEdit: PropTypes.func,
 };
 
 export default OrderEditor;

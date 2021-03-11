@@ -1,11 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import styles from './SwitchingAmount.module.scss';
 
 const SwitchingAmount = ({value, isReadOnly, min, max}) => {
   if (isReadOnly) {
     return (
-      <span>{value}</span>
+      <Typography>{value}</Typography>
     );
   } else {
     return (
