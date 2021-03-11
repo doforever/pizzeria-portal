@@ -8,24 +8,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { DataGrid } from '@material-ui/data-grid';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import OrderParams from '../OrderParams/OrderParams';
+import SwitchingAmount from '../../common/SwitchingAmount/SwitchingAmount';
 
 import styles from './OrderSummary.module.scss';
 
 const OrderSummary = () => {
   const {totalPrice, id, products} = order;
   const [isReadOnly, setReadOnly] = useState(true);
-
-  const renderAmount = (value) => (
-    <TextField className={styles.amount}
-      value={value}
-      type="number"
-      InputProps={{
-        readOnly: isReadOnly,
-      }}
-    />
-  );
 
   const renderActions = () => (
     <div>
@@ -42,7 +32,7 @@ const OrderSummary = () => {
     { field: 'id', headerName: 'ID', flex:1},
     { field: 'params', headerName: 'Params', flex: 3, renderCell: ({row}) => OrderParams(row.params)},
     { field: 'priceSingle', headerName: 'Price', flex: 1},
-    { field: 'amount', headerName: 'Amount', flex: 1, renderCell: ({row}) => renderAmount(row.amount)},
+    { field: 'amount', headerName: 'Amount', flex: 1, renderCell: ({row}) => SwitchingAmount(row.amount, isReadOnly)},
     { field: 'actions', headerName: 'Actions', flex:1, renderCell: () => renderActions()},
   ];
 
