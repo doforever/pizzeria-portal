@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import order from '../../../data/order.json';
+import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -13,8 +13,7 @@ import SwitchingAmount from '../../common/SwitchingAmount/SwitchingAmount';
 
 import styles from './OrderSummary.module.scss';
 
-const OrderSummary = () => {
-  const {totalPrice, id, products} = order;
+const OrderSummary = ({totalPrice, products}) => {
   const [isReadOnly, setReadOnly] = useState(true);
 
   const renderActions = () => (
@@ -28,11 +27,15 @@ const OrderSummary = () => {
     </div>
   );
 
+  const renderAmount = (amount) => (
+    <SwitchingAmount value={amount} isReadOnly={isReadOnly} min={0} max={9} />
+  );
+
   const columns = [
     { field: 'id', headerName: 'ID', flex:1},
     { field: 'params', headerName: 'Params', flex: 3, renderCell: ({row}) => OrderParams(row.params)},
     { field: 'priceSingle', headerName: 'Price', flex: 1},
-    { field: 'amount', headerName: 'Amount', flex: 1, renderCell: ({row}) => SwitchingAmount(row.amount, isReadOnly)},
+    { field: 'amount', headerName: 'Amount', flex: 1, renderCell: ({row}) => renderAmount(row.amount)},
     { field: 'actions', headerName: 'Actions', flex:1, renderCell: () => renderActions()},
   ];
 
@@ -41,9 +44,6 @@ const OrderSummary = () => {
       <Grid container spacing={2} direction="column">
         <Grid item>
           <Typography component="h3" variant="h5" gutterBottom>Order summary</Typography>
-        </Grid>
-        <Grid item>
-          <Typography component="h4" variant="h6" >Order id: {id}</Typography>
         </Grid>
         <Grid item>
           <DataGrid
@@ -64,6 +64,11 @@ const OrderSummary = () => {
       </Grid>
     </Paper>
   );
+};
+
+OrderSummary.propTypes = {
+  totalPrice: PropTypes.number,
+  products: PropTypes.array,
 };
 
 export default OrderSummary;
