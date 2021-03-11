@@ -1,13 +1,11 @@
 import React from 'react';
 import styles from './NewOrder.module.scss';
-import products from '../../../data/products.json';
 
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import MenuProduct from '../../features/MenuProduct/MenuProduct';
 import Grid from '@material-ui/core/Grid';
 import OrderSummary from '../../features/OrderSummary/OrderSummary';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -15,8 +13,7 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import Menu from '../../features/Menu/Menu';
-
-
+import SwitchingAmount from '../../common/SwitchingAmount/SwitchingAmount';
 
 
 const NewOrder = () => {
@@ -40,19 +37,7 @@ const NewOrder = () => {
                     <Typography component="h3" variant="h5" display="inline">Choose table: </Typography>
                   </Grid>
                   <Grid item>
-                    <FormControl>
-                      <Select
-                        id="table-nbr"
-                        defaultValue=""
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <SwitchingAmount isReadOnly={false} min={0} max={3} />
                   </Grid>
                 </Grid>
                 <Grid item>
