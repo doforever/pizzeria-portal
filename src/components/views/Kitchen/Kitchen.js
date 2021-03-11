@@ -14,7 +14,7 @@ const columns = [
   { field: 'id', headerName: 'ID', hide: true},
   { field: 'timestamp', headerName: 'Order time', flex: 1},
   { field: 'for', headerName: 'For', width: 100},
-  { field: 'order', headerName: 'Order', flex: 2, renderCell: params => renderOrder(params)},
+  { field: 'order', headerName: 'Order', flex: 2, renderCell: ({row}) => renderOrder(row.order)},
   { field: 'status', headerName: 'Status', flex: 1},
 ];
 
@@ -75,17 +75,38 @@ const rows = [
     status: 'new'},
 ];
 
-function renderOrder ({value}) {
+function renderOrder (order) {
   return (
-    <List>
-      {value.map(product => (
-        <ListItem key={value.indexOf(product)}>
-          <ListItemText primary={`${product.name} x${product.amount}`} secondary={product.toppings}></ListItemText>
+    <List className={styles.order}>
+      {order.map(({name, amount, ...otherParams}) => (
+        <ListItem key={name}>
+          <ListItemText
+            className={styles.orderItem}
+            primary={`${name} x${amount}`}
+            secondary={kitchenOrderParams(otherParams)}
+          >
+          </ListItemText>
         </ListItem>
       ))}
     </List>
   );
 }
+
+const kitchenOrderParams = params => {
+  let text = '';
+
+  for (let param in params) {
+    text += `${param}: `;
+    const values = params[param];
+    if (typeof values === 'string') {
+      text += `${values}, `;
+    } else { for (let value of values) {
+      text += `${value}, `;
+    }}
+  }
+
+  return text;
+};
 
 const Kitchen = () => {
   const toggleDone = (id) => {
@@ -108,7 +129,7 @@ const Kitchen = () => {
                     className={styles.data_grid}
                     rows={rows}
                     columns={columns}
-                    rowHeight={150}
+                    rowHeight={200}
                     autoHeight
                     disableColumnSelector
                     disableSelectionOnClick

@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import { DataGrid } from '@material-ui/data-grid';
 import Grid from '@material-ui/core/Grid';
 import OrderParams from '../OrderParams/OrderParams';
@@ -29,7 +28,7 @@ const OrderSummary = ({totalPrice, products, editable}) => {
 
   const columns = [
     { field: 'id', headerName: 'ID', flex:1},
-    { field: 'params', headerName: 'Params', flex: 3, renderCell: ({row}) => OrderParams(row.params)},
+    { field: 'params', headerName: 'Params', flex: 4, renderCell: ({row}) => OrderParams(row.params)},
     { field: 'priceSingle', headerName: 'Price', flex: 1},
     { field: 'amount', headerName: 'Amount', flex: 1, renderCell: ({row}) => renderAmount(row.amount)},
     { field: 'actions', headerName: 'Actions', hide:!editable, flex:1, renderCell: () => renderActions()},
@@ -41,7 +40,7 @@ const OrderSummary = ({totalPrice, products, editable}) => {
         <Grid item>
           <Typography component="h3" variant="h5" gutterBottom>Order summary</Typography>
         </Grid>
-        <Grid item>
+        <Grid item className={styles.table}>
           <DataGrid
             rows={products}
             columns={columns}
