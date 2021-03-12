@@ -7,7 +7,6 @@ import { DataGrid } from '@material-ui/data-grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
@@ -34,12 +33,12 @@ function renderActions (status) {
       return (
         <>
           <Button>thinking</Button>
-          <Button>new order</Button>
+          <Button href="waiter/order/new">new order</Button>
         </>
       );
     case 'thinking':
       return (
-        <Button>new order</Button>
+        <Button href="waiter/order/new">new order</Button>
       );
     case 'ordered':
       return (
@@ -97,9 +96,6 @@ const Waiter = ({history}) => {
                 </Grid>
               </Grid>
             </CardContent>
-            <CardActions>
-              <Button color="primary" href="waiter/order/new">Add new order</Button>
-            </CardActions>
           </Card>
         </Grid>
       </Grid>
