@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Waiter.module.scss';
 import PropTypes from 'prop-types';
 
@@ -9,6 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
 
 const columns = [
   { field: 'id', headerName: 'Table', width: 70},
@@ -16,15 +17,6 @@ const columns = [
   { field: 'status', headerName: 'Status', flex: 1},
   // { field: 'timeLastChanged', headerName: 'Time since change', flex: 1},
   { field: 'actions', headerName: 'Actions', flex:1, renderCell: ({row}) => renderActions(row.status)},
-];
-
-const rows = [
-  {id: '1', status: 'free', order: null},
-  {id: '2', status: 'thinking', order: null},
-  {id: '3', status: 'ordered', order: 123},
-  {id: '4', status: 'prepared', order: 234},
-  {id: '5', status: 'delivered', order: 345},
-  {id: '6', status: 'paid', order: 456},
 ];
 
 function renderActions (status) {
@@ -63,48 +55,71 @@ function renderActions (status) {
 
 function renderOrder (order) {
   if (order) return (
-    <Link href={`/waiter/order/${order}`}>
+    <Link href={`waiter/order/${order}`}>
       Order id: {order}
     </Link>
   );
 }
 
-const Waiter = ({history}) => {
+const Waiter = ({loading: { active, error }, tables, fetchTables}) => {
 
-  return (
-    <div className={styles.component}>
-      <Typography component="h1" variant="h3" gutterBottom>Waiter</Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Grid container spacing={2} direction="column">
-                <Grid item>
-                  <Typography component="h2" variant="h4" gutterBottom>Tables</Typography>
+  useEffect(() => {
+    fetchTables();
+  }, [fetchTables]);
+
+  if(active || !tables.length){
+    return (
+      <Paper className={styles.component}>
+        <p>Loading...</p>
+      </Paper>
+    );
+  } else if(error) {
+    return (
+      <Paper className={styles.component}>
+        <p>Error! Details:</p>
+        <pre>{error}</pre>
+      </Paper>
+    );
+  } else {
+    return (
+      <div className={styles.component}>
+        <Typography component="h1" variant="h3" gutterBottom>Waiter</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Card>
+              <CardContent>
+                <Grid container spacing={2} direction="column">
+                  <Grid item>
+                    <Typography component="h2" variant="h4" gutterBottom>Tables</Typography>
+                  </Grid>
+                  <Grid item>
+                    <DataGrid
+                      rows={tables}
+                      columns={columns}
+                      autoHeight
+                      disableColumnSelector
+                      disableSelectionOnClick
+                      disableColumnMenu
+                      hideFooter
+                      showCellRightBorder
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    autoHeight
-                    disableColumnSelector
-                    disableSelectionOnClick
-                    disableColumnMenu
-                    hideFooter
-                    showCellRightBorder
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
-  );
+      </div>
+    );
+  }
 };
 
 Waiter.propTypes = {
-  history: PropTypes.object,
+  fetchTables: PropTypes.func,
+  loading: PropTypes.shape({
+    active: PropTypes.bool,
+    error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+  }),
 };
 
 export default Waiter;
