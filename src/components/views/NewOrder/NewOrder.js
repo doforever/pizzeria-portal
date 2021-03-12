@@ -7,7 +7,7 @@ import Menu from '../../features/Menu/Menu';
 import OrderEditor from '../../features/OrderEditor/OrderEditor';
 
 const NewOrder = () => {
-  const [order, setOrder] = useState({totalPrice:0, products: []});
+  const [order] = useState({totalPrice:0, products: []});
 
   return (
     <div className={styles.component}>
