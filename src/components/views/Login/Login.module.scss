@@ -1,5 +1,13 @@
 @import '../../../styles/settings.scss';
 
 .component {
+  padding: $base-size*2 0;
+}
+
+.content {
   padding: $base-size;
+}
+
+.submit {
+  margin-top: $base-size;
 }

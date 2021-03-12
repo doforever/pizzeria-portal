@@ -1,0 +1,57 @@
+
+{
+  "table": 1,
+  "totalPrice": 38,
+  "subTotalPrice": 20,
+  "totalNumber": 2,
+  "products": [
+    {
+      "id": "pizza",
+      "amount": 1,
+      "price": 20,
+      "priceSingle": 20,
+      "name": "Nonna Alba's Pizza",
+      "params": {
+        "sauce": {
+          "label": "Sauce",
+          "options": {
+            "tomato": "Tomato"
+          }
+        },
+        "toppings": {
+          "label": "Toppings",
+          "options": {
+            "olives": "Olives",
+            "redPeppers": "Red peppers",
+            "greenPeppers": "Green peppers",
+            "mushrooms": "Mushrooms",
+            "basil": "Fresh basil"
+          }
+        },
+        "crust": {
+          "label": "Pizza crust",
+          "options": {
+            "standard": "standard"
+          }
+        }
+      }
+    },
+    {
+      "id": "breakfast",
+      "amount": 2,
+      "price": 18,
+      "priceSingle": 9,
+      "name": "Zia Giulia's Breakfast",
+      "params": {
+        "coffee": {
+          "label": "Coffee type",
+          "options": {
+            "espresso": "Espresso"
+          }
+        }
+      }
+    }
+  ],
+  "id": 1
+}
+
