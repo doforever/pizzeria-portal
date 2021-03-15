@@ -108,7 +108,102 @@
       }
     }
   }],
-  "order": [],
+  "order": [
+    {
+      "address": "Zawada 80",
+      "phone": "+4833939019",
+      "totalPrice": 69,
+      "subTotalPrice": 49,
+      "totalNumber": 3,
+      "deliveryFee": 20,
+      "products": [
+        {
+          "id": "cake",
+          "amount": 1,
+          "price": 9,
+          "priceSingle": 9,
+          "name": "Zio Stefano's Doughnut",
+          "params": {}
+        },
+        {
+          "id": "pizza",
+          "amount": 2,
+          "price": 40,
+          "priceSingle": 20,
+          "name": "Nonna Alba's Pizza",
+          "params": {
+            "sauce": {
+              "label": "Sauce",
+              "options": {
+                "tomato": "Tomato"
+              }
+            },
+            "toppings": {
+              "label": "Toppings",
+              "options": {
+                "olives": "Olives",
+                "redPeppers": "Red peppers",
+                "greenPeppers": "Green peppers",
+                "mushrooms": "Mushrooms",
+                "basil": "Fresh basil"
+              }
+            },
+            "crust": {
+              "label": "pizza crust",
+              "options": {
+                "standard": "standard"
+              }
+            }
+          }
+        }
+      ],
+      "id": 1
+    },
+    {
+      "address": "domek w lesie",
+      "phone": "+12345678988",
+      "totalPrice": 56,
+      "subTotalPrice": 36,
+      "totalNumber": 4,
+      "deliveryFee": 20,
+      "products": [
+        {
+          "id": "salad",
+          "amount": 1,
+          "price": 9,
+          "priceSingle": 9,
+          "name": "Nonno Alberto's Salad",
+          "params": {
+            "ingredients": {
+              "label": "Ingredients",
+              "options": {
+                "cucumber": "Cucumber",
+                "tomatoes": "Tomatoes",
+                "olives": "Olives",
+                "herbs": "Fresh herbs"
+              }
+            }
+          }
+        },
+        {
+          "id": "breakfast",
+          "amount": 3,
+          "price": 27,
+          "priceSingle": 9,
+          "name": "Zia Giulia's Breakfast",
+          "params": {
+            "coffee": {
+              "label": "Coffee type",
+              "options": {
+                "espresso": "Espresso"
+              }
+            }
+          }
+        }
+      ],
+      "id": 2
+    }
+  ],
   "event": [
     {
       "id": 1,
@@ -176,20 +271,20 @@
     {
       "id": 3,
       "status": "ordered",
-      "order": 123
+      "order": 1
     },
     {
       "id": 4,
       "status": "prepared",
-      "order": 234
+      "order": 2
     },
     {
       "id": 5,
-      "status": "delivered",
-      "order": 345},
+      "status": "free",
+      "order": null},
     {
       "id": 6,
-      "status": "paid",
-      "order": 456}
+      "status": "thinking",
+      "order": null}
   ]
 }

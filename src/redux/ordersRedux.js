@@ -4,7 +4,7 @@ import { api } from '../settings';
 /* selectors */
 export const getAll = ({orders}) => orders.data;
 export const getLoadingState = ({orders}) => orders.loading;
-export const getOrderForId = ({orders}, id) => orders.find(order => order.id === id);
+export const getOrderForId = ({orders: { data }}, id) => data.find(order => order.id === parseInt(id));
 
 /* action name creator */
 const reducerName = 'orders';

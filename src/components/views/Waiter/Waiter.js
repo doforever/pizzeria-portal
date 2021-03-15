@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Waiter = ({loading: { active, error }, tables, fetchTables, updateStatus}) => {
   const columns = [
@@ -26,12 +27,12 @@ const Waiter = ({loading: { active, error }, tables, fetchTables, updateStatus})
         return (
           <>
             <Button onClick={() => updateStatus(id, 'thinking')}>thinking</Button>
-            <Button href="waiter/order/new" onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+            <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
           </>
         );
       case 'thinking':
         return (
-          <Button href="waiter/order/new" onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+          <Button onClick={() => updateStatus(id, 'ordered')}>new order</Button>
         );
       case 'ordered':
         return (
@@ -56,7 +57,7 @@ const Waiter = ({loading: { active, error }, tables, fetchTables, updateStatus})
 
   function renderOrder (order) {
     if (order) return (
-      <Link href={`waiter/order/${order}`}>
+      <Link component={RouterLink} to={`waiter/order/${order}`}>
         Order id: {order}
       </Link>
     );

@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
-import Order from './Order';
+import OrderEditor from './OrderEditor';
 import { getOrderForId, getLoadingState, fetchOrderFromAPI } from '../../../redux/ordersRedux';
-import { getTableForOrderId } from '../../../redux/tablesRedux';
+import { getTableForOrderId, fetchFromAPI, getLoadingState as getLoadingTable } from '../../../redux/tablesRedux';
 
 const mapStateToProps = (state, {id}) => ({
   order: getOrderForId(state, id),
   loading: getLoadingState(state),
-  tableId: getTableForOrderId(state, id).id,
+  table: getTableForOrderId(state, id),
+  loadingTable: getLoadingTable(state),
 });
 
 const mapDispatchToProps = (dispatch, {id}) => ({
   fetchOrder: () => dispatch(fetchOrderFromAPI(id)),
+  fetchTables: () => dispatch(fetchFromAPI()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Order);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderEditor);

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Order.module.scss';
-import order from '../../../data/order.json';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Menu from '../../features/Menu/Menu';
-import OrderEditor from '../../features/OrderEditor/OrderEditor';
+import OrderEditor from '../../features/OrderEditor/OrderEditorContainer';
 import Hidden from '@material-ui/core/Hidden';
 
 
@@ -28,7 +27,12 @@ const Order = ({match}) => {
           </Grid>
         </Hidden>
         <Grid item>
-          <OrderEditor editable={inEdit} onEdit={() => setInEdit(true)} onSave={onSave} {...order}/>
+          <OrderEditor
+            editable={inEdit}
+            onEdit={() => setInEdit(true)}
+            onSave={onSave}
+            id={id}
+          />
         </Grid>
       </Grid>
     </div>

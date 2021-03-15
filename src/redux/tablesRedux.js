@@ -4,7 +4,7 @@ import { api } from '../settings';
 /* selectors */
 export const getAll = ({tables}) => tables.data;
 export const getLoadingState = ({tables}) => tables.loading;
-export const getTableForOrderId = ({tables}, orderId) => tables.find(table => table.order === orderId);
+export const getTableForOrderId = ({tables: { data }}, orderId) => data.find(table => table.order === parseInt(orderId));
 
 /* action name creator */
 const reducerName = 'tables';
@@ -34,6 +34,21 @@ export const fetchFromAPI = () => {
       .get(`${api.url}/api/${api.tables}`)
       .then(res => {
         dispatch(fetchSuccess(res.data));
+      })
+      .catch(err => {
+        dispatch(updateError(err.message || true));
+      });
+  };
+};
+
+export const fetchTableFromAPI = (id) => {
+  return dispatch => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/api/${api.tables}/${id}`)
+      .then(res => {
+        dispatch(fetchSuccess([res.data]));
       })
       .catch(err => {
         dispatch(updateError(err.message || true));
