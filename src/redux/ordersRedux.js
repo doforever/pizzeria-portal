@@ -2,28 +2,27 @@ import Axios from 'axios';
 import { api } from '../settings';
 
 /* selectors */
-export const getAll = ({tables}) => tables.data;
-export const getLoadingState = ({tables}) => tables.loading;
-export const getTableForOrderId = ({tables}, orderId) => tables.find(table => table.order === orderId);
+export const getAll = ({orders}) => orders.data;
+export const getLoadingState = ({orders}) => orders.loading;
+export const getOrderForId = ({orders}, id) => orders.find(order => order.id === id);
 
 /* action name creator */
-const reducerName = 'tables';
+const reducerName = 'orders';
 const createActionName = name => `app/${reducerName}/${name}`;
 
 /* action types */
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
-const UPDATE_STATUS = createActionName('UPDATE_STATUS');
-const UPDATE_ERROR = createActionName('UPDATE_ERROR');
+const ADD = createActionName('ADD');
+const ADD_ERROR = createActionName('ADD_ERROR');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
-export const updateStatus = payload => ({payload, type: UPDATE_STATUS});
-export const updateError = payload => ({payload, type: UPDATE_ERROR});
-
+export const addOrder = payload => ({ payload, type: ADD });
+export const addError = payload => ({ payload, type: ADD_ERROR });
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -31,24 +30,9 @@ export const fetchFromAPI = () => {
     dispatch(fetchStarted());
 
     Axios
-      .get(`${api.url}/api/${api.tables}`)
+      .get(`${api.url}/api/${api.order}`)
       .then(res => {
         dispatch(fetchSuccess(res.data));
-      })
-      .catch(err => {
-        dispatch(updateError(err.message || true));
-      });
-  };
-};
-
-export const updateAPIStatus = (id, status) => {
-  return dispatch => {
-    const config = status === 'free' ? {status, order: null} : {status};
-
-    Axios
-      .patch(`${api.url}/api/${api.tables}/${id}`, config)
-      .then(res => {
-        dispatch(updateStatus(res.data));
       })
       .catch(err => {
         dispatch(fetchError(err.message || true));
@@ -56,18 +40,46 @@ export const updateAPIStatus = (id, status) => {
   };
 };
 
+export const fetchOrderFromAPI = (id) => {
+  return dispatch => {
+    dispatch(fetchStarted());
+
+    Axios
+      .get(`${api.url}/api/${api.order}/${id}`)
+      .then(res => {
+        dispatch(fetchSuccess([res.data]));
+      })
+      .catch(err => {
+        dispatch(fetchError(err.message || true));
+      });
+  };
+};
+
+export const addAPIOrder = (order) => {
+  return dispatch => {
+
+    Axios
+      .post(`${api.url}/api/${api.order}/${order.id}`, order)
+      .then(res => {
+        dispatch(addOrder(res.data));
+      })
+      .catch(err => {
+        dispatch(addError(err.message || true));
+      });
+  };
+};
+
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
   switch (action.type) {
-    case UPDATE_STATUS: {
-      const newData = statePart.data.map(table => table.id === action.payload.id ? action.payload : table);
+    case ADD: {
 
       return {
         ...statePart,
-        data: newData,
+        data: [...statePart.data, action.payload],
       };
     }
-    case UPDATE_ERROR: {
+    case ADD_ERROR: {
       return {
         ...statePart,
         loading: {
