@@ -42,9 +42,10 @@ export const fetchFromAPI = () => {
 
 export const updateAPIStatus = (id, status) => {
   return (dispatch, getState) => {
+    const config = status === 'free' ? {status, order: null} : {status};
 
     Axios
-      .patch(`${api.url}/api/${api.tables}/${id}`, {status})
+      .patch(`${api.url}/api/${api.tables}/${id}`, config)
       .then(res => {
         dispatch(updateStatus(res.data));
       })
