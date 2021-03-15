@@ -13,11 +13,16 @@ const createActionName = name => `app/${reducerName}/${name}`;
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
+const UPDATE_STATUS = createActionName('UPDATE_STATUS');
+const UPDATE_ERROR = createActionName('UPDATE_ERROR');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
+export const updateStatus = payload => ({payload, type: UPDATE_STATUS});
+export const updateError = payload => ({payload, type: UPDATE_ERROR});
+
 
 /* thunk creators */
 export const fetchFromAPI = () => {
@@ -30,6 +35,20 @@ export const fetchFromAPI = () => {
         dispatch(fetchSuccess(res.data));
       })
       .catch(err => {
+        dispatch(updateError(err.message || true));
+      });
+  };
+};
+
+export const updateAPIStatus = (id, status) => {
+  return (dispatch, getState) => {
+
+    Axios
+      .patch(`${api.url}/api/${api.tables}/${id}`, {status})
+      .then(res => {
+        dispatch(updateStatus(res.data));
+      })
+      .catch(err => {
         dispatch(fetchError(err.message || true));
       });
   };
@@ -38,6 +57,23 @@ export const fetchFromAPI = () => {
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
   switch (action.type) {
+    case UPDATE_STATUS: {
+      const newData = statePart.data.map(table => table.id === action.payload.id ? action.payload : table);
+
+      return {
+        ...statePart,
+        data: newData,
+      };
+    }
+    case UPDATE_ERROR: {
+      return {
+        ...statePart,
+        loading: {
+          active: false,
+          error: action.payload,
+        },
+      };
+    }
     case FETCH_START: {
       return {
         ...statePart,

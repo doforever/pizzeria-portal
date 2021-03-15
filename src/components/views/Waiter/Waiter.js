@@ -11,57 +11,56 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 
-const columns = [
-  { field: 'id', headerName: 'Table', width: 70},
-  { field: 'order', headerName: 'Order', flex: 1, renderCell: ({row}) => renderOrder(row.order)},
-  { field: 'status', headerName: 'Status', flex: 1},
-  // { field: 'timeLastChanged', headerName: 'Time since change', flex: 1},
-  { field: 'actions', headerName: 'Actions', flex:1, renderCell: ({row}) => renderActions(row.status)},
-];
+const Waiter = ({loading: { active, error }, tables, fetchTables, updateStatus}) => {
+  const columns = [
+    { field: 'id', headerName: 'Table', width: 70},
+    { field: 'order', headerName: 'Order', flex: 1, renderCell: ({row}) => renderOrder(row.order)},
+    { field: 'status', headerName: 'Status', flex: 1},
+    // { field: 'timeLastChanged', headerName: 'Time since change', flex: 1},
+    { field: 'actions', headerName: 'Actions', flex:1, renderCell: ({row}) => renderActions(row.status, row.id)},
+  ];
 
-function renderActions (status) {
-  switch (status) {
-    case 'free':
-      return (
-        <>
-          <Button>thinking</Button>
-          <Button href="waiter/order/new">new order</Button>
-        </>
-      );
-    case 'thinking':
-      return (
-        <Button href="waiter/order/new">new order</Button>
-      );
-    case 'ordered':
-      return (
-        <Button>prepared</Button>
-      );
-    case 'prepared':
-      return (
-        <Button>delivered</Button>
-      );
-    case 'delivered':
-      return (
-        <Button>paid</Button>
-      );
-    case 'paid':
-      return (
-        <Button>free</Button>
-      );
-    default:
-      return null;
+  function renderActions (status, id) {
+    switch (status) {
+      case 'free':
+        return (
+          <>
+            <Button onClick={() => updateStatus(id, 'thinking')}>thinking</Button>
+            <Button href="waiter/order/new" onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+          </>
+        );
+      case 'thinking':
+        return (
+          <Button href="waiter/order/new" onClick={() => updateStatus(id, 'ordered')}>new order</Button>
+        );
+      case 'ordered':
+        return (
+          <Button onClick={() => updateStatus(id, 'prepared')}>prepared</Button>
+        );
+      case 'prepared':
+        return (
+          <Button onClick={() => updateStatus(id, 'delivered')}>delivered</Button>
+        );
+      case 'delivered':
+        return (
+          <Button onClick={() => updateStatus(id, 'paid')}>paid</Button>
+        );
+      case 'paid':
+        return (
+          <Button onClick={() => updateStatus(id, 'free')}>free</Button>
+        );
+      default:
+        return null;
+    }
   }
-}
 
-function renderOrder (order) {
-  if (order) return (
-    <Link href={`waiter/order/${order}`}>
-      Order id: {order}
-    </Link>
-  );
-}
-
-const Waiter = ({loading: { active, error }, tables, fetchTables}) => {
+  function renderOrder (order) {
+    if (order) return (
+      <Link href={`waiter/order/${order}`}>
+        Order id: {order}
+      </Link>
+    );
+  }
 
   useEffect(() => {
     fetchTables();
@@ -120,6 +119,7 @@ Waiter.propTypes = {
     active: PropTypes.bool,
     error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
   }),
+  updateStatus: PropTypes.func,
 };
 
 export default Waiter;
