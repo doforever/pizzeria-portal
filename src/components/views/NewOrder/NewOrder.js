@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './NewOrder.module.scss';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Menu from '../../features/Menu/Menu';
-import OrderEditor from '../../features/OrderEditor/OrderEditor';
+import OrderEditor from '../../features/OrderEditor/OrderEditorContainer';
 
-const NewOrder = () => {
-  const [order] = useState({totalPrice:0, products: []});
+const NewOrder = ({ tableId }) => {
+  const newOrder = {totalPrice: 0, products: []};
+
 
   return (
     <div className={styles.component}>
@@ -17,11 +19,15 @@ const NewOrder = () => {
         	<Menu />
         </Grid>
         <Grid item>
-          <OrderEditor {...order}/>
+          <OrderEditor table={{id: tableId}} order={newOrder}/>
         </Grid>
       </Grid>
     </div>
   );
+};
+
+NewOrder.propTypes = {
+  tableId: PropTypes.number,
 };
 
 export default NewOrder;

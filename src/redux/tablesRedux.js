@@ -41,24 +41,14 @@ export const fetchFromAPI = () => {
   };
 };
 
-export const fetchTableFromAPI = (id) => {
-  return dispatch => {
-    dispatch(fetchStarted());
-
-    Axios
-      .get(`${api.url}/api/${api.tables}/${id}`)
-      .then(res => {
-        dispatch(fetchSuccess([res.data]));
-      })
-      .catch(err => {
-        dispatch(updateError(err.message || true));
-      });
-  };
-};
-
 export const updateAPIStatus = (id, status) => {
   return dispatch => {
-    const config = status === 'free' ? {status, order: null} : {status};
+    let config = {status};
+    if (status === 'free') {
+      config.order = null;
+    } else if (status === 'ordered') {
+      config.order = parseInt(id + `${Date.now()}`.slice(-2));
+    }
 
     Axios
       .patch(`${api.url}/api/${api.tables}/${id}`, config)

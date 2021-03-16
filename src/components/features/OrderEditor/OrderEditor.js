@@ -23,9 +23,9 @@ const OrderEditor = ({ editable=true, onSave, onEdit, table, order, fetchOrder, 
   };
 
   useEffect(() => {
-    fetchOrder();
+    if (!order) fetchOrder();
 
-  }, [fetchOrder]);
+  }, [fetchOrder, order]);
 
   useEffect(() => {
     if (!table) {
