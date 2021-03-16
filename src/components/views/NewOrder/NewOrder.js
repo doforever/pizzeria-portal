@@ -1,25 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './NewOrder.module.scss';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Menu from '../../features/Menu/Menu';
-import OrderEditor from '../../features/OrderEditor/OrderEditorContainer';
+import OrderEditor from '../../features/OrderEditor/OrderEditor';
 
 const NewOrder = ({ tableId }) => {
-  const newOrder = {totalPrice: 0, products: []};
+  const [newOrder, setNewOrder] = useState({totalPrice: 0, products: []});
+  const [tableNbr, setTableNbr] = useState(tableId);
 
+  const addProduct = product => {
+    console.log('adding product', product);
+    setNewOrder(products => [...products, product]);
+  };
+
+  const updateOrder = (order) => {
+    console.log('updating order', order);
+  };
+
+  const saveOrder = () => {
+    console.log('save order on server');
+  };
 
   return (
     <div className={styles.component}>
       <Typography component="h1" variant="h3" gutterBottom>New order</Typography>
       <Grid container spacing={2} direction="column">
         <Grid item>
-        	<Menu />
+        	<Menu add={addProduct}/>
         </Grid>
         <Grid item>
-          <OrderEditor table={{id: tableId}} order={newOrder}/>
+          <OrderEditor
+            tableNbr={tableNbr}
+            setTableNbr={setTableNbr}
+            order={newOrder}
+            updateOrder={updateOrder}
+            onSave={saveOrder}
+          />
         </Grid>
       </Grid>
     </div>
