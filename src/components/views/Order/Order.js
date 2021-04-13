@@ -10,7 +10,7 @@ import OrderEditor from '../../features/OrderEditor/OrderEditor';
 import Hidden from '@material-ui/core/Hidden';
 
 
-const Order = ({ match, order, loading: { active, error }, table, loadingTable, fetchOrder, fetchTables }) => {
+const Order = ({ match, order, loading: { active, error }, fetchOrders}) => {
   const id = match.params.id;
   const [inEdit, setInEdit] = useState(false);
 
@@ -28,11 +28,11 @@ const Order = ({ match, order, loading: { active, error }, table, loadingTable, 
   };
 
   useEffect(() => {
-    if (!order) fetchOrder();
-    if (!table) fetchTables();
+    if (!order) fetchOrders();
+    // if (!table) fetchTables();
   }, []);
 
-  if(active || loadingTable.active || !order || !table){
+  if(active || !order ){
     return (
       <Paper>
         <p>Loading...</p>
@@ -43,13 +43,6 @@ const Order = ({ match, order, loading: { active, error }, table, loadingTable, 
       <Paper>
         <p>Error! Details:</p>
         <pre>{error}</pre>
-      </Paper>
-    );
-  } else if(loadingTable.error) {
-    return (
-      <Paper>
-        <p>Error! Details:</p>
-        <pre>{loadingTable.error}</pre>
       </Paper>
     );
   } else {
@@ -67,7 +60,7 @@ const Order = ({ match, order, loading: { active, error }, table, loadingTable, 
               editable={inEdit}
               onEdit={() => setInEdit(true)}
               onSave={saveOrder}
-              tableNbr={table.id}
+              tableNbr= {0}
               setTableNbr={setTableNbr}
               order={order}
               updateOrder={updateOrder}
